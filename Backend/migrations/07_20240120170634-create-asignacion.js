@@ -3,41 +3,38 @@
 module.exports = {
  up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('asignaciones', {
-      id: {
+      id_asignaciones: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id_usuario_asignador: {
+      id_administrador: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
-          model: 'Usuario',
+          model: 'Usuarios',
           key: 'id_usuario',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        onDelete: 'CASCADE',
       },
-      id_usuario_asignado: {
+      id_programador: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
-          model: 'Usuario',
+          model: 'Usuarios',
           key: 'id_usuario',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        onDelete: 'CASCADE',
       },
       id_tarea: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
-          model: 'Tarea',
+          model: 'Tareas',
           key: 'id_tarea',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
