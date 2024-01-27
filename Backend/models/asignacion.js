@@ -4,6 +4,7 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
   const Asignacion = sequelize.define('Asignacion', {
+    // Otras columnas...
     id_usuario_asignador: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -15,8 +16,8 @@ module.exports = (sequelize) => {
     id_tarea: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    }
-  }, 
+    },
+  },
   {
     sequelize,
     modelName: 'Asignacion',
