@@ -1,61 +1,56 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('tarea', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('tareas', {
+      id_tarea: {
+        type: Sequelize.INTEGER,
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      idProgramador: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'user',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-      },
-      asignadaPor: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'user',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        autoIncrement: true,
       },
       descripcion: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT,
+        allowNull: false,
       },
       dificultad: {
-        type: Sequelize.ENUM('XS', 'S', 'M', 'L', 'XL')
+        type: Sequelize.ENUM('XS', 'S', 'M', 'L', 'XL'),
+        allowNull: false,
       },
       horas_previstas: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       horas_realizadas: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       porcentaje_realizacion: {
-        type: Sequelize.FLOAT
+        type: Sequelize.INTEGER,
       },
       completada: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+      id_programador: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Usuarios',
+          key: 'id_usuario',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
       },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
+      asignada_por: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Usuarios',
+          key: 'id_usuario',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('tarea');
-  }
+
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('tareas');
+  },
 };

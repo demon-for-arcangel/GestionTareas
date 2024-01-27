@@ -1,24 +1,22 @@
 const bcrypt = require('bcrypt');
-const { fakerES } = require('@faker-js/faker');
+const faker = require('faker');
 
-const genUsers = async (ctos = 1) => {
+const usuarioFactory = async (ctos = 1) => {
+    let factory = [];
 
-    let usersGen = []
-    for(let i = 1; i <= ctos; i++) {
-        const password = await bcrypt.hash('1234', 10);
-        let u = 
-            {
-            nombre: fakerES.person.firstName(),
+    for (let i = 1; i <= ctos; i++) {
+        const password = await bcrypt.hash(faker.internet.password(), 10);
+        const user = {
+            nombre_usuario: faker.name.firstName(),
+            email: faker.internet.email(),
             contrasena: password,
-            id_rol: Math.ceil(Math.random() * 2),
-            createdAt: new Date(),
-            updatedAt: new Date()
-            }
-            usersGen.push(u)
+        };
+        factory.push(user);
     }
-    return Promise.all(usersGen);
-}
+
+    return Promise.all(factory);
+};
 
 module.exports = {
-    genUsers
-}
+    usuarioFactory
+};

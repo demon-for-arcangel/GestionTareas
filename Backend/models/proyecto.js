@@ -2,31 +2,31 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Rol extends Model {
+  class Proyecto extends Model {
     static associate(models) {
       // Asociaciones (si las necesitas)
     }
   }
 
-  Rol.init(
+  Proyecto.init(
     {
-      id_rol: {
+      id_proyecto: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      nombre_rol: {
+      nombre_proyecto: {
         type: DataTypes.STRING(255),
         allowNull: false,
       },
     },
     {
       sequelize,
-      modelName: 'Rol',
-      tableName: 'roles',
-      timestamps: false, 
+      modelName: 'Proyecto',
+      tableName: 'proyectos',
+      timestamps: false,
     }
   );
 
-  return Rol;
+  return Proyecto;
 };

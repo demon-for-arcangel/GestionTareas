@@ -1,26 +1,34 @@
+// models/asignacion.js
 'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class Asignacion extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+const { DataTypes } = require('sequelize');
+
+module.exports = (sequelize) => {
+  const Asignacion = sequelize.define('Asignacion', {
+    id_usuario_asignador: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    id_usuario_asignado: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    id_tarea: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     }
-  }
-  Asignacion.init({
-    id_tarea: DataTypes.INTEGER,
-    id_programador: DataTypes.INTEGER,
-    fecha_asignacion: DataTypes.DATE
-  }, {
+  }, 
+  {
     sequelize,
     modelName: 'Asignacion',
-    tableName: 'asignacion',
+    tableName: 'asignaciones',
+    timestamps: false,
   });
+
+  Asignacion.belongsTo(sequelize.models.Usuario, { foreignKey: 'id_usuario_asignador', as: 'UsuarioAsignador' });
+
+  Asignacion.belongsTo(sequelize.models.Usuario, { foreignKey: 'id_usuario_asignado', as: 'UsuarioAsignado' });
+
+  Asignacion.belongsTo(sequelize.models.Tarea, { foreignKey: 'id_tarea', as: 'TareaAsignada'});
+
   return Asignacion;
 };

@@ -1,23 +1,20 @@
-const faker = require('@faker-js/faker');
+'use strict';
+const faker = require('faker');
 
-const generarTareas = (count = 1) => {
- let tareas = [];
- for(let i = 0; i < count; i++) {
-  const opciones=['XS','S','M','L','XL']
-  let tarea = {
-    idProgramador: null,
-    asignadaPor: null,
-    descripcion: 'tarea',
-    dificultad: opciones[Math.floor(Math.random() * opciones.length)],
-    horas_previstas: Math.floor(Math.random() * (20 - 10+ 1)) + 10,
-    horas_realizadas: 0,
-    completada: false
-  };
-  tareas.push(tarea);
- }
- return tareas;
-}
+const tareaFactory = async (ctos = 1) => {
+  const tasks = [];
 
-module.exports = {
- generarTareas
-}
+  for (let i = 0; i < ctos; i++) {
+    tasks.push({
+      descripcion: faker.lorem.sentence(),
+      dificultad: faker.random.arrayElement(['XS', 'S', 'M', 'L', 'XL']),
+      horas_previstas: faker.random.number({ min: 1, max: 20 }),
+      id_programador: faker.random.number({ min: 1, max: 10 }), // Ajusta según la cantidad de usuarios
+      asignada_por: faker.random.number({ min: 1, max: 10 }), // Ajusta según la cantidad de usuarios
+    });
+  }
+
+  return tasks;
+};
+
+module.exports = tareaFactory;

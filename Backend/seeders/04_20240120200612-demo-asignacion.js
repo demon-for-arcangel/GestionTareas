@@ -4,12 +4,12 @@ const{assignedRolFactory}=require('../factories/asignacionFactory')
 module.exports = {
   async up (queryInterface, Sequelize) {
     const rols = await assignedRolFactory(1);
-    await queryInterface.bulkInsert('asignacion', rols, {});
+    await queryInterface.bulkInsert('asignaciones', rols, {});
   },
 
   async down (queryInterface, Sequelize) {
    
-     await queryInterface.bulkDelete('asignacion', null, {});
+     await queryInterface.bulkDelete('asignaciones', null, {});
      
   }
 };
