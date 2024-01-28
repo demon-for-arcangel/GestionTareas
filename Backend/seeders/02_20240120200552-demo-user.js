@@ -1,15 +1,14 @@
 'use strict';
 
-
-const {usuarioFactory} = require('../factories/usuarioFactory')
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    const usuarios = await usuarioFactory(2);
-    await queryInterface.bulkInsert('usuarios', usuarios, {});
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkInsert('usuarios', [
+      { nombre_usuario: 'Admin', email: 'admin@gmail.com', contrasena: 'admin123', id_rol: 1 },
+      { nombre_usuario: 'Programador', email: 'prog@gmail.com', contrasena: 'admin123', id_rol: 2 },
+    ], { validate: false });
   },
 
-  async down (queryInterface, Sequelize) {
+  down: async (queryInterface, Sequelize) => {
     await queryInterface.bulkDelete('usuarios', null, {});
   }
 };

@@ -2,14 +2,13 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('TareasProyecto', [
-      { id_tarea: 1, id_proyecto: 1 }, // Asigna los ID correctos según las migraciones de Tareas y Proyectos
-      { id_tarea: 2, id_proyecto: 1 },
-      { id_tarea: 3, id_proyecto: 2 },
+    await queryInterface.bulkInsert('historialtareas', [
+      { id_programador: 2, id_tarea: 1, fecha_finalizacion: new Date() },
+      // Agrega más registros de historial de tareas si es necesario
     ], {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('TareasProyecto', null, {});
+    await queryInterface.bulkDelete('historialtareas', null, {});
   }
 };

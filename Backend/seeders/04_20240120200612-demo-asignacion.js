@@ -1,15 +1,14 @@
 'use strict';
-const{assignedRolFactory}=require('../factories/asignacionFactory')
-/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    const rols = await assignedRolFactory(1);
-    await queryInterface.bulkInsert('asignaciones', rols, {});
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkInsert('asignaciones', [
+      { id_administrador: 1, id_programador: 2, id_tarea: 1, createdAt: new Date(), updatedAt: new Date() },
+      // Agrega más asignaciones si es necesario
+    ], {});
   },
 
-  async down (queryInterface, Sequelize) {
-   
-     await queryInterface.bulkDelete('asignaciones', null, {});
-     
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkDelete('asignaciones', null, {});
   }
 };

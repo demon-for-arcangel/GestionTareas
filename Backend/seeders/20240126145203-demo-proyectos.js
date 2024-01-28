@@ -2,13 +2,13 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('Proyectos', [
-      { nombre_proyecto: 'Proyecto A' },
-      { nombre_proyecto: 'Proyecto B' },
+    await queryInterface.bulkInsert('proyectos', [
+      { nombre_proyecto: 'Proyecto 1' },
+      // Agrega más proyectos si es necesario
     ], {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Proyectos', null, {});
+    await queryInterface.bulkDelete('proyectos', null, {});
   }
 };

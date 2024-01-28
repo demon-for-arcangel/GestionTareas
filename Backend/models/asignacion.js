@@ -1,35 +1,49 @@
-// models/asignacion.js
+// models/usuario.js
 'use strict';
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  const Asignacion = sequelize.define('Asignacion', {
-    // Otras columnas...
-    id_usuario_asignador: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+  const Usuario = sequelize.define(
+    'Usuario',
+    {
+      id_usuario: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      nombre_usuario: {
+        type: DataTypes.STRING(255),
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING, // Cambiado a STRING para almacenar el correo electrónico
+        allowNull: false,
+        unique: true,
+        validate: {
+          isEmail: true,
+        },
+      },
+      contrasena: {
+        type: DataTypes.STRING(255),
+        allowNull: false,
+      },
+      id_rol: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'Rol',
+          key: 'id_rol',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
     },
-    id_usuario_asignado: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    id_tarea: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-  },
-  {
-    sequelize,
-    modelName: 'Asignacion',
-    tableName: 'asignaciones',
-    timestamps: false,
-  });
+    {
+      sequelize,
+      modelName: 'Usuario',
+      tableName: 'usuarios',
+      timestamps: false,
+    }
+  );
 
-  Asignacion.belongsTo(sequelize.models.Usuario, { foreignKey: 'id_usuario_asignador', as: 'UsuarioAsignador' });
-
-  Asignacion.belongsTo(sequelize.models.Usuario, { foreignKey: 'id_usuario_asignado', as: 'UsuarioAsignado' });
-
-  Asignacion.belongsTo(sequelize.models.Tarea, { foreignKey: 'id_tarea', as: 'TareaAsignada'});
-
-  return Asignacion;
+  return Usuario;
 };
