@@ -21,7 +21,7 @@ const registrarUsuario = async (req, res) => {
       id_rol,
     });
 
-    const token = jwt.sign({ id_usuario: nuevoUsuario.id_usuario, email }, 'claveSecreta', { expiresIn: '1h' });
+    const token = jwt.sign({ id_usuario: nuevoUsuario.id_usuario, email }, process.env.CLAVE, { expiresIn: '2h' });
 
     res.json({ id_usuario: nuevoUsuario.id_usuario, token });
   } catch (error) {
@@ -46,8 +46,7 @@ const iniciarSesion = async (req, res) => {
       return res.status(401).json({ message: 'Credenciales incorrectas' });
     }
 
-    const token = jwt.sign({ id_usuario: usuario.id_usuario, email }, 'claveSecreta', { expiresIn: '1h' });
-
+    const token = jwt.sign({ id_usuario: usuario.id_usuario, email }, process.env.CLAVE, { expiresIn: '2h' });
     res.json({ id_usuario: usuario.id_usuario, token });
   } catch (error) {
     console.error(error);
