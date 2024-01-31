@@ -13,7 +13,10 @@ class Server {
         this.app.use(express.json());
     }
     routes(){
-        this.app.use(this.apiPath , require('../routes/routes'));
+        this.app.use(this.apiPath , require('../routes/RolesRoutes'));
+        this.app.use(this.apiPath , require('../routes/TareasRoutes'));
+        this.app.use(this.apiPath , require('../routes/UsuarioRoutes'));
+        this.app.use(this.apiPath, require('../routes/AuthRoutes'));
     }
 
     listen() {
