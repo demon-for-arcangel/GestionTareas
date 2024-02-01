@@ -44,16 +44,12 @@ const iniciarSesion = async (req, res) => {
       return res.status(401).json({ message: 'Credenciales incorrectas' });
     }
 
-    const token = jwt.sign({ id_usuario: usuario.id_usuario, email }, process.env.CLAVE, { expiresIn: '2h' });
-    res.json({ id_usuario: usuario.id_usuario, token });
+    const token = jwt.sign({ id_usuario: usuario.id_usuario, email, id_rol: usuario.id_rol }, process.env.CLAVE, { expiresIn: '2h' });
+    res.json({ id_usuario: usuario.id_usuario, token, id_rol: usuario.id_rol }); // Agregar id_rol a la respuesta
   } catch (error) {
     console.error(error);
     res.status(500).send('Error en el servidor');
   }
 };
 
-/* const cerrarSesion = (req, res) => {
-  res.json({ message: 'Sesión cerrada exitosamente' });
-}; */
-
-module.exports = { registrarUsuario, iniciarSesion, /* cerrarSesion */ };
+module.exports = { registrarUsuario, iniciarSesion };

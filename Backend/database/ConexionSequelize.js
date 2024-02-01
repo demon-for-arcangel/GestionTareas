@@ -32,9 +32,11 @@ class ConexionSequilze {
             console.error('Unable to connect to the database: ', error);
         });
     }
+
     desconectar = () => {
         process.on('SIGINT', () => conn.close())
     }
+    
     checkLogin = async (email) => {
 
         this.conectar();
