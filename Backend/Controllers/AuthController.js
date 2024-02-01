@@ -1,4 +1,4 @@
-const { Usuario } = require('../models'); // Asumiendo que tienes un modelo de Usuario
+const { Usuario } = require('../models'); 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -21,9 +21,7 @@ const registrarUsuario = async (req, res) => {
       id_rol,
     });
 
-    const token = jwt.sign({ id_usuario: nuevoUsuario.id_usuario, email }, process.env.CLAVE, { expiresIn: '2h' });
-
-    res.json({ id_usuario: nuevoUsuario.id_usuario, token });
+    res.json({ id_usuario: nuevoUsuario.id_usuario, email: nuevoUsuario.email, id_rol: nuevoUsuario.id_rol });
   } catch (error) {
     console.error(error);
     res.status(500).send('Error en el servidor');
